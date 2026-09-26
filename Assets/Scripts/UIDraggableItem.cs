@@ -1,17 +1,50 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class UIDraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public ItemData itemData;
-    public Image iconImage;
+    private Image cachedIcon;
 
-    private void Start()
+    private void Awake()
     {
-        if (itemData != null && iconImage != null && itemData.icon != null)
+        InitializeIcon();
+    }
+
+    private void OnValidate()
+    {
+        // Updates visual representation automatically inside the Editor when itemData changes
+        InitializeIcon();
+    }
+
+    private void InitializeIcon()
+    {
+        if (itemData == null) return;
+
+        // Auto-detect the Icon component under children without manual inspector assignment
+        if (cachedIcon == null)
         {
-            iconImage.sprite = itemData.icon;
+            Transform iconTransform = transform.Find("Icon");
+            if (iconTransform != null)
+            {
+                cachedIcon = iconTransform.GetComponent<Image>();
+            }
+        }
+
+        // Apply sprite from ItemData to the target Image
+        if (cachedIcon != null)
+        {
+            if (itemData.icon != null)
+            {
+                cachedIcon.sprite = itemData.icon;
+                cachedIcon.gameObject.SetActive(true);
+            }
+            else
+            {
+                cachedIcon.gameObject.SetActive(false);
+            }
         }
     }
 

@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d749492c78861b4b83b3ccc350db3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuOffset: {x: 0, y: 0.6, z: 0}
+  menuOffset: {x: 0, y: 0.8, z: 0}

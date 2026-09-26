@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb11d7cc25fba8d46ad8bd0d8ae137ae, type: 3}
+  m_Name: Item_Teapot
+  m_EditorClassIdentifier: 
+  itemName: Teapot
+  icon: {fileID: 21300000, guid: 898d0e8e55b7c0a4ab82e2042c652147, type: 3}
+  prefab: {fileID: 5533323518557161444, guid: d68500d784d4e914992187875cb42fc1, type: 3}
+  previewPrefab: {fileID: 0}
+  placementOffset: {x: 0, y: 0, z: 0}

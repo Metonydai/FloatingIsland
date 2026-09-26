@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Sphere
   m_EditorClassIdentifier: 
   itemName: Sphere
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 8d908b9e8f8fb7d4cb564d18a8c908bc, type: 3}
   prefab: {fileID: 4633585283091434460, guid: f735e25e7366c7f45b4687c3390c0449, type: 3}
   previewPrefab: {fileID: 0}
   placementOffset: {x: 0, y: 0.25, z: 0}
