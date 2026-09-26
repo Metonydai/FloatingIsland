@@ -16,4 +16,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   prefab: {fileID: 6757004055586728759, guid: 24806564906fb1f4594ccf995a6e48a4, type: 3}
   previewPrefab: {fileID: 0}
-  placementOffset: {x: 0, y: 1, z: 0}
+  placementOffset: {x: 0, y: 0.5, z: 0}
