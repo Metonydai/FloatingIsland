@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-public class UIDraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UIDraggableItem : MonoBehaviour, 
+    IBeginDragHandler, IDragHandler, IEndDragHandler,
+    IPointerDownHandler, IPointerUpHandler,
+    IPointerEnterHandler, IPointerExitHandler
 {
     public ItemData itemData;
     private Image cachedIcon;
+    private bool isHovered = false;
 
     private void Awake()
     {
@@ -50,7 +53,7 @@ public class UIDraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (itemData != null)
+        if (!PlatformModeSwitcher.IsVRMode && itemData != null)
         {
             PlacementManager.Instance.StartPlacement(itemData);
         }
@@ -58,11 +61,52 @@ public class UIDraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        // 拖曳事件維持活躍，射線邏輯已在 PlacementManager 內更新
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        PlacementManager.Instance.EndPlacement();
+        if (!PlatformModeSwitcher.IsVRMode)
+        {
+            PlacementManager.Instance.EndPlacement();
+        }
     }
+
+    // VR 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (PlatformModeSwitcher.IsVRMode)
+        {
+            if (itemData != null)
+            {
+                PlacementManager.Instance.SpawnAndGrabInVR(itemData);
+            }
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isHovered = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isHovered = false;
+    }
+
+    private void Update()
+    {
+        // 僅在 VR 模式、射線懸停在該按鈕上、且握下 Grip 鍵時觸發
+        if (PlatformModeSwitcher.IsVRMode && isHovered && itemData != null)
+        {
+            if (PlacementManager.Instance != null && PlacementManager.Instance.IsVRGripPressedThisFrame())
+            {
+                PlacementManager.Instance.SpawnAndGrabInVR(itemData);
+            }
+        }
+    }
+
 }
